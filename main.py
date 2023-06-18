@@ -4,6 +4,12 @@ from flask import jsonify
 
 app = Flask(__name__)
 
+# 使用config.py的設定
+app.config.from_object('config.Config')
+
+# 匯入目前的app
+from flask import current_app
+
 users = [
             {
                 'id': 1,
