@@ -105,3 +105,10 @@ class User(Resource):
             }
             return result
         return {'status': 'failure', 'message': 'User not found'}, 404
+
+'''
+這個程式碼將使用 Flask-SQLAlchemy 來定義資料庫模型，
+並且使用 SQLite3 資料庫作為儲存後端。
+請確保您已經安裝了 Flask-SQLAlchemy 庫
+（可使用 pip install flask-sqlalchemy 安裝）。
+'''

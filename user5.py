@@ -103,3 +103,18 @@ def login():
         return {'access_token': access_token}, 200
     else:
         return {'error': 'Invalid username or password'}, 401
+
+'''
+我們使用 flask_jwt_extended 模組的 JWTManager 來管理 JWT 認證。
+首先，我們設定了 JWT 的金鑰 JWT_SECRET_KEY，你需要將其修改為一個安全且隨機的字串。
+接下來，我們在 Users 和 User 類別的方法上使用了 @jwt_required 裝飾器，
+這表示這些方法需要 JWT 認證才能訪問。最後，我們新增了一個 /login 的路由，
+用於驗證使用者的帳號密碼並產生 JWT Token。
+
+請確保你已經安裝了 Flask-JWT-Extended 套件，可以使用以下命令進行安裝：
+pip install flask-jwt-extended
+請注意，這只是一個示例程式碼，實際的 JWT 實作可能需要更多的安全措施，
+例如使用 HTTPS 進行傳輸、適當的 Token 過期時間等。
+請仔細閱讀 Flask-JWT-Extended 的文件以瞭解更多詳細信息。
+
+'''
