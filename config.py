@@ -3,4 +3,3 @@ class Config(object):
     DEBUG = True
     SECRET_KEY = 'your_secret_key'
     DATABASE_URI = 'your_database_uri'
-    # 其他配置项...
