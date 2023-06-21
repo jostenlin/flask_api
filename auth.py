@@ -7,7 +7,7 @@ class AuthRoutes:
         # 建立 Flask-JWT-Extended 實例
         JWTManager(app)
 
-        # 產生 JWT Token
+        # 登入以取得 JWT Token
         @app.route('/login', methods=['POST'])
         def login():
             # 取得使用者傳過來的 JSON

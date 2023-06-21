@@ -25,7 +25,7 @@ api.add_resource(User, '/user')
 # 測試用路由(可刪除)
 @app.route('/')
 def hello_world():
-    # 使用config.py的設定
+    # 讀取config.py的配置
     app.config.from_object('config.Config')
     from flask import current_app
     # return {'DEBUG': current_app.config['DEBUG']}
