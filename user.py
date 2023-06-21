@@ -18,7 +18,6 @@ class Users(Resource):
 class User(Resource):
     def get(self):
         id = request.args.get('id')
-        # 取得特定使用者的文件
         user_doc = db.collection("users").document(id).get()
         if user_doc.exists:
             return user_doc.to_dict()
@@ -28,12 +27,14 @@ class User(Resource):
     def post(self):
         user = request.get_json()
         id = user['id']
+        
         # 檢查使用者是否已經存在
-        user_doc = db.collection("users").document(id).get()
+        user_doc = db.collection("users").document(str(id)).get()
         if user_doc.exists:
             return {'status': 'failure', 'message': 'User already exists'}, 400
+            
         # 新增使用者到資料庫
-        db.collection("users").document(id).set(user)
+        db.collection("users").document(str(id)).set(user)
         result = {
             'status': 'success',
             'message': 'User added successfully',
@@ -44,10 +45,10 @@ class User(Resource):
     def delete(self):
         id = request.args.get('id')
         # 檢查使用者是否存在
-        user_doc = db.collection("users").document(id).get()
+        user_doc = db.collection("users").document(str(id)).get()
         if user_doc.exists:
             # 刪除使用者
-            db.collection("users").document(id).delete()
+            db.collection("users").document(str(id)).delete()
             result = {
                 'status': 'success',
                 'message': 'User deleted',
@@ -61,11 +62,11 @@ class User(Resource):
         user = request.get_json()
         id = user['id']
         # 檢查使用者是否存在
-        user_doc = db.collection("users").document(id).get()
+        user_doc = db.collection("users").document(str(id)).get()
         if not user_doc.exists:
             return {'status': 'failure', 'message': 'User not found'}, 404
         # 更新使用者資訊
-        db.collection("users").document(id).set(user)
+        db.collection("users").document(str(id)).set(user)
         result = {
             'status': 'success',
             'message': 'User updated successfully',
