@@ -17,7 +17,10 @@ class Users(Resource):
 
 class User(Resource):
     def get(self):
+        # 從網址取得 id 參數(string)
         id = request.args.get('id')
+        
+        # 從firestore取得索引為id的使用者資料
         user_doc = db.collection("users").document(id).get()
         if user_doc.exists:
             return user_doc.to_dict()
@@ -25,16 +28,19 @@ class User(Resource):
             return {'status': 'failure', 'message': 'User not found'}, 404
 
     def post(self):
+        # 從請求中的body取得使用者資料
         user = request.get_json()
-        id = user['id']
         
-        # 檢查使用者是否已經存在
-        user_doc = db.collection("users").document(str(id)).get()
+        # 從使用者資料中取得id(string)
+        id = str(user['id'])
+        
+        # 檢查索引為id的使用者是否已經存在
+        user_doc = db.collection("users").document(id).get()
         if user_doc.exists:
-            return {'status': 'failure', 'message': 'User already exists'}, 400
+            return {'status': 'failure', 'message': '該id使用者已存在'}, 400
             
-        # 新增使用者到資料庫
-        db.collection("users").document(str(id)).set(user)
+        # 新增使用者到資料庫(注意自訂id為字串)
+        db.collection("users").document(id).set(user)
         result = {
             'status': 'success',
             'message': 'User added successfully',
@@ -43,12 +49,14 @@ class User(Resource):
         return result
 
     def delete(self):
+        # 從網址取得 id querystring
         id = request.args.get('id')
+        
         # 檢查使用者是否存在
-        user_doc = db.collection("users").document(str(id)).get()
+        user_doc = db.collection("users").document(id).get()
         if user_doc.exists:
             # 刪除使用者
-            db.collection("users").document(str(id)).delete()
+            db.collection("users").document(id).delete()
             result = {
                 'status': 'success',
                 'message': 'User deleted',
@@ -60,13 +68,15 @@ class User(Resource):
 
     def put(self):
         user = request.get_json()
-        id = user['id']
+        id = str(user['id'])
+        
         # 檢查使用者是否存在
-        user_doc = db.collection("users").document(str(id)).get()
+        user_doc = db.collection("users").document(id).get()
         if not user_doc.exists:
-            return {'status': 'failure', 'message': 'User not found'}, 404
+            return {'status': 'failure', 'message': '該使用者不存在'}, 404
+        
         # 更新使用者資訊
-        db.collection("users").document(str(id)).set(user)
+        db.collection("users").document(id).set(user)
         result = {
             'status': 'success',
             'message': 'User updated successfully',

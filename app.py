@@ -8,7 +8,8 @@ from config import Config
 
 app = Flask(__name__)
 
-# 載入設定檔
+# 載入設定檔config.py所有設定
+# 包括 flask-jwt-extended 的設定
 app.config.from_object(Config)
 
 # 允許跨域請求

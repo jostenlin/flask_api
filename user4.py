@@ -84,8 +84,6 @@ class User(Resource):
         return {'status': 'failure', 'message': 'User not found'}, 404
 
 
-
-
 '''
 我們使用 flask_jwt_extended 模組的 JWTManager 來管理 JWT 認證。
 首先，我們設定了 JWT 的金鑰 JWT_SECRET_KEY，你需要將其修改為一個安全且隨機的字串。
