@@ -13,7 +13,11 @@ def getUsers():
     client = gspread.authorize(credentials)
     
     # 開啟 Google Sheets
+    # 注意：google sheet必須與服務帳號共用編輯
+    # 一個服務帳號可以共用多個google sheet
+    # 返回哪一個共用的sheet以sheet名稱為準
     sheet = client.open('test').sheet1
+  
 
     # 讀取資料
     data = sheet.get_all_records()
