@@ -1,20 +1,32 @@
 from flask_restful import Resource
 from flask import request
 
-users = [
-            {
-                'id': 1,
-                'name': 'John Doe111',
-                'email': '1@abc.com'
-            },
-            {
-                'id': 2,
-                'name': 'Jane Doe',
-                'email': '2@abc.com'
-            }
-        ]
+# Google Sheets API v4 版本
+import gspread
+from google.oauth2.service_account import Credentials
 
+def getUsers():
+    # 設定 Google Sheets API 的驗證憑證
+    scope = ['https://spreadsheets.google.com/feeds',
+             'https://www.googleapis.com/auth/drive']
+    credentials = Credentials.from_service_account_file('sheet_api_key.json', scopes=scope)
+    client = gspread.authorize(credentials)
+    
+    # 開啟 Google Sheets
+    sheet = client.open('test').sheet1
 
+    # 讀取資料
+    data = sheet.get_all_records()
+
+    # 篩選
+    # data = [record for record in data if record['name'] == 'kevin']
+
+    # 處理資料並回傳
+    return data
+
+users = getUsers()
+
+# 增刪改都是假的，資料都在記憶體中
 class Users(Resource):
     # 返回所有使用者
     def get(self):
