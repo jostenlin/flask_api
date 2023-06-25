@@ -1,92 +1,78 @@
 from flask_restful import Resource
 from flask import request
-
-# Google Sheets API v4 版本
+import json
 import gspread
 from google.oauth2.service_account import Credentials
 
-def getUsers():
-    # 設定 Google Sheets API 的驗證憑證
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
-    credentials = Credentials.from_service_account_file('sheet_api_key.json', scopes=scope)
-    client = gspread.authorize(credentials)
-    
-    # 開啟 Google Sheets
-    # 注意：google sheet必須與服務帳號共用編輯
-    # 一個服務帳號可以共用多個google sheet
-    # 返回哪一個共用的sheet以sheet名稱(如'test')為準
-    sheet = client.open('test').worksheet('工作表1')  
+# 設定 Google Sheets 的認證範圍和金鑰檔案路徑
+scope = ['https://spreadsheets.google.com/feeds',
+         'https://www.googleapis.com/auth/drive']
+credentials = Credentials.from_service_account_file('sheet_api_key.json', scopes=scope)
+client = gspread.authorize(credentials)
 
-    # 讀取資料
-    data = sheet.get_all_records()
+# 開啟 Google Sheets
+# 注意：google sheet必須與服務帳號共用編輯
+# 一個服務帳號可以共用多個google sheet
+# 返回哪一個共用的sheet以sheet名稱(如'test')為準
+sheet = client.open('test').worksheet('工作表1') 
 
-    # 篩選
-    # data = [record for record in data if record['name'] == 'kevin']
-
-    # 處理資料並回傳
-    return data
-
-users = getUsers()
-
-# 增刪改都是假的，資料都在記憶體中
 class Users(Resource):
-    # 返回所有使用者
     def get(self):
-        return users
-    
+        # 讀取所有使用者資料
+        data = sheet.get_all_records()
+        return data
 
-class User(Resource):        
+class User(Resource):
     def get(self):
-        # 取得使用者傳過來的id
         id = request.args.get('id')
-        for user in users:
+        data = sheet.get_all_records()
+        for user in data:
             if user['id'] == int(id):
                 return user
-        return {'status': 'failure', 'message': 'User not found'},404
+        return {'status': 'failure', 'message': 'User not found'}, 404
 
     def post(self):
-        # 取得使用者傳過來的json
-        user=request.get_json()
-        
-        # 檢查使用者是否已經存在
-        for u in users:
+        user = request.get_json()
+        data = sheet.get_all_records()
+        for u in data:
             if u['id'] == user['id']:
-                return {'status': 'failure', 'message': 'User already exists'},400
-            
-        # 新增使用者
-        users.append(user)
-        result= {
-                    'status': 'success', 
-                    'message': 'User added successfully',
-                    'added_user': user 
-                }
+                return {'status': 'failure', 'message': 'User already exists'}, 400
+        sheet.append_row([user['id'], user['name'], user['email']])
+        result = {
+            'status': 'success',
+            'message': 'User added successfully',
+            'added_user': user
+        }
         return result
-    
+
     def delete(self):
-        # 取得使用者傳過來的id
         id = request.args.get('id')
-        for user in users:
+        data = sheet.get_all_records()
+        for i, user in enumerate(data):
             if user['id'] == int(id):
-                users.remove(user)
-                result= {
-                    'status': 'success', 
+                row = i + 2  # 因為資料從第二列開始，所以需要加上偏移量
+                sheet.delete_row(row)
+                result = {
+                    'status': 'success',
                     'message': 'User deleted',
-                    'deleted_user': user 
+                    'deleted_user': user
                 }
                 return result
-        return {'status': 'failure', 'message': 'User not found'},404
-    
+        return {'status': 'failure', 'message': 'User not found'}, 404
+
     def put(self):
-        # 取得使用者傳過來的json
-        user=request.get_json()
-        for i in range(len(users)):
-            if users[i]['id'] == user['id']:
-                users[i]=user
-                result= {
-                    'status': 'success', 
+        user = request.get_json()
+        data = sheet.get_all_records()
+        for i, u in enumerate(data):
+            if u['id'] == user['id']:
+                row = i + 2  # 因為資料從第二列開始，所以需要加上偏移量
+                cell_range = f"A{row}:C{row}"
+                values = [user['id'], user['name'], user['email']]
+                sheet.update(cell_range, [values])
+                result = {
+                    'status': 'success',
                     'message': 'User updated successfully',
-                    'updated_user': user 
+                    'updated_user': user
                 }
                 return result
-        return {'status': 'failure', 'message': 'User not found'},404
+        return {'status': 'failure', 'message': 'User not found'}, 404
