@@ -1,5 +1,4 @@
 from flask import Flask
-from flask_cors import CORS
 from flask_restful import Api
 
 from auth import AuthRoutes
@@ -12,12 +11,13 @@ from login2 import Login2
 
 app = Flask(__name__)
 
+# 允許跨域請求
+from flask_cors import CORS
+CORS(app)
+
 # 載入設定檔config.py所有設定
 # 包括 flask-jwt-extended 的設定
 app.config.from_object(Config)
-
-# 允許跨域請求
-CORS(app)
 
 # 設定權限相關路由
 AuthRoutes.configure_routes(app)
