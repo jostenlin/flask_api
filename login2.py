@@ -23,9 +23,9 @@ common={
   }
 }
 
-class Login(Resource):
+class Login2(Resource):
     def post(self):
-        username = request.args.get('username')
+        username = request.get_json()['username']
         if username == 'admin':
             return admin
         return common

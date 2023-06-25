@@ -8,7 +8,7 @@ from config import Config
 # 1.obj array          2.sqlite3              3.firestore  
 # 4.obj array + jwt    5.google sheets api
 from user5 import Users, User
-from login import Login
+from login2 import Login2
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ AuthRoutes.configure_routes(app)
 api = Api(app)
 api.add_resource(Users, '/users')
 api.add_resource(User, '/user')
-api.add_resource(Login, '/login')
+api.add_resource(Login2, '/login2')
 
 # 測試用路由(可刪除)
 @app.route('/')
