@@ -12,6 +12,8 @@ firebase-admin = "*"
 gspread = "*"
 google-auth = "*"
 google-auth-oauthlib = "*"
+importlib-metadata = "*"
+typing-extensions = "*"
 
 [dev-packages]
 
