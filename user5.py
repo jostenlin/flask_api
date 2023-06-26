@@ -11,10 +11,12 @@ credentials = Credentials.from_service_account_file('sheet_api_key.json', scopes
 client = gspread.authorize(credentials)
 
 # 開啟 Google Sheets
+sheet = client.open('test').worksheet('工作表1')
+
 # 注意：google sheet必須與服務帳號共用編輯
 # 一個服務帳號可以共用多個google sheet
 # 返回哪一個共用的sheet以sheet名稱(如'test')為準
-sheet = client.open('test').worksheet('工作表1') 
+
 
 class Users(Resource):
     def get(self):
