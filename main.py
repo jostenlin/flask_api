@@ -6,7 +6,7 @@ from config import Config
 
 # 1.obj array          2.sqlite3              3.firestore
 # 4.obj array + jwt    5.google sheets api
-from user1 import Users, User
+from user2 import Users, User
 
 from login2 import Login2
 from asyncRoutes import AsyncRoutes
@@ -44,4 +44,4 @@ def hello_world():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
