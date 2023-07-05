@@ -1,79 +1,47 @@
 from flask import Flask
-from flask import request
-from flask import jsonify
+from flask_restful import Api
+
+from auth import AuthRoutes
+from config import Config
+
+# 1.obj array          2.sqlite3              3.firestore
+# 4.obj array + jwt    5.google sheets api
+from user1 import Users, User
+
+from login2 import Login2
+from asyncRoutes import AsyncRoutes
 
 app = Flask(__name__)
 
-# 使用config.py的設定
-app.config.from_object('config.Config')
+# 允許跨域請求
+# from flask_cors import CORS
+# CORS(app)
 
-# 匯入目前的app
-from flask import current_app
+# 載入設定檔config.py所有設定
+# 包括 flask-jwt-extended 的設定
+app.config.from_object(Config)
 
-users = [
-            {
-                'id': 1,
-                'name': 'John Doe',
-                'email': '1@abc.com'
-            },
-            {
-                'id': 2,
-                'name': 'Jane Doe',
-                'email': '2@abc.com'
-            }
-        ]
+# 設定權限相關路由
+AuthRoutes.configure_routes(app)
 
-@app.route('/')
+# 設定其他路由
+api = Api(app)
+api.add_resource(Users, "/users")
+api.add_resource(User, "/user")
+api.add_resource(Login2, "/login2")
+api.add_resource(AsyncRoutes, "/getAsyncRoutes")
+
+
+# 測試用路由(可刪除)
+@app.route("/")
 def hello_world():
-    return 'Hello, World!'
+    # 讀取config.py的配置
+    app.config.from_object("config.Config")
+    from flask import current_app
 
-@app.route('/users', methods=['GET'])
-def getUsers():
-    # 如果methods有幾種方法，也可以根據不同的方法做不同的事情
-    # if request.method != 'GET':
-    #     pass
-    return jsonify(users)
+    # return {'DEBUG': current_app.config['DEBUG']}
+    return {"DEBUG": current_app.config["JWT_SECRET_KEY"]}
 
-@app.route('/adduser', methods=['POST'])
-def addUser():
-    user=request.get_json()
-    users.append(user)
-    result= {
-                'status': 'success', 
-                'message': 'User added successfully',
-                'added_user': user 
-            }
-    return jsonify(result)
 
-# given an id, delete the user
-@app.route('/deleteuser/<int:id>', methods=['DELETE'])
-def deleteUser(id):
-    for user in users:
-        if user['id'] == id:
-            users.remove(user)
-            result= {
-                'status': 'success', 
-                'message': 'User deleted successfully',
-                'removed_user': user 
-            }
-            return jsonify(result)
-    return jsonify({'status': 'failure', 'message': 'User not found'})
-
-# given an user, update the user
-# user is passed as json in the request body
-@app.route('/updateuser', methods=['PUT'])
-def updateUser():
-    user=request.get_json()
-    for i in range(len(users)):
-        if users[i]['id'] == user['id']:
-            users[i]=user
-            result= {
-                'status': 'success', 
-                'message': 'User updated successfully',
-                'updated_user': user 
-            }
-            return jsonify(result)
-    return jsonify({'status': 'failure', 'message': 'User not found'})
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
