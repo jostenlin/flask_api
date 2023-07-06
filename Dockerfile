@@ -10,6 +10,7 @@ ADD . /app
 # 每一個 RUN 指令會在現有映像檔之上加入新的一層
 RUN pip install -r requirements.txt 
 
+# 容器暴露的埠號
 EXPOSE 8888
 
 # 一個 Dockerfile 中只能有一個 CMD 指令，CMD 則是在容器運行時所執行的指令。
