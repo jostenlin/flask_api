@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_restful import Api
 
@@ -40,7 +41,9 @@ def hello_world():
     from flask import current_app
 
     # return {'DEBUG': current_app.config['DEBUG']}
-    return {"DEBUG": current_app.config["JWT_SECRET_KEY"]}
+    # return {"DEBUG": current_app.config["JWT_SECRET_KEY"]}
+    
+    return "hi:" + os.environ.get("DB_URL")
 
 
 if __name__ == "__main__":

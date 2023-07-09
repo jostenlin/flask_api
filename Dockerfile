@@ -1,6 +1,9 @@
 # 基底映像檔 (base image)
 FROM python:3.11.4-bookworm
 
+# 設定環境變數預設值。啟動時可傳入新值予以覆蓋。
+ENV DB_URL=""
+
 # 建立工作目錄
 WORKDIR /app
 

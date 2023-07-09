@@ -14,6 +14,7 @@ google-auth = "*"
 google-auth-oauthlib = "*"
 importlib-metadata = "*"
 typing-extensions = "*"
+"google.cloud" = "*"
 
 [dev-packages]
 
