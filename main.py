@@ -6,21 +6,13 @@ from auth import AuthRoutes
 from config import Config
 
 # 1.obj array          2.sqlite3              3.firestore
-# 4.obj array + jwt    5.google sheets api
-from user2 import Users, User
+# 4.obj array + jwt    5.google sheets api    6.MySQL
+from user6 import Users, User
 
 from login2 import Login2
 from asyncRoutes import AsyncRoutes
 
 from google.cloud import storage
-
-
-def download_file(bucket_name, object_name, local_path):
-    storage_client = storage.Client()
-    bucket = storage_client.get_bucket(bucket_name)
-    blob = bucket.blob(object_name)
-    blob.download_to_filename(local_path)
-
 
 app = Flask(__name__)
 
@@ -50,15 +42,9 @@ def hello_world():
     app.config.from_object("config.Config")
     from flask import current_app
 
-    # return {'DEBUG': current_app.config['DEBUG']}
+    return {"DEBUG": current_app.config["DEBUG"]}
     # return {"DEBUG": current_app.config["JWT_SECRET_KEY"]}
-    return "hi:" + os.environ.get("DB_URL")
-
-
-@app.route("/newdb")
-def newdb():
-    download_file("test-sqlite3", "users.db", "./users.db")
-    return "從storage下載新的資料庫"
+    # return "hi:" + os.environ.get("DB_URL")
 
 
 if __name__ == "__main__":

@@ -16,6 +16,7 @@ importlib-metadata = "*"
 typing-extensions = "*"
 "google.cloud" = "*"
 google-cloud-storage = "*"
+pymysql = "*"
 
 [dev-packages]
 
