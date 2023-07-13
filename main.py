@@ -55,9 +55,9 @@ if __name__ == "__main__":
 
     # Now the SQLite database file can be accessed at
     # '/mnt/my-bucket/my-database.db'
-    # '/mnt/my-bucket/users.db'
+    # '/mnt/my_db_files/users.db'
 
     # 在cloud run時，使用環境變量port。
-    # 若在本機端測試，使用預設值port=5000
+    # 若在本機端測試時找不到，使用預設值port=5000
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=False, host="0.0.0.0", port=port)
