@@ -1,4 +1,5 @@
 import os
+import subprocess
 from flask import Flask
 from flask_restful import Api
 
@@ -7,12 +8,11 @@ from config import Config
 
 # 1.obj array          2.sqlite3              3.firestore
 # 4.obj array + jwt    5.google sheets api    6.MySQL
-from user6 import Users, User
+# 7.google cloud storage 上的 sqlite3 檔案
+from user7 import Users, User
 
 from login2 import Login2
 from asyncRoutes import AsyncRoutes
-
-from google.cloud import storage
 
 app = Flask(__name__)
 
@@ -48,4 +48,16 @@ def hello_world():
 
 
 if __name__ == "__main__":
-    app.run(debug=False, host="0.0.0.0", port=5000)
+    # Mount the Cloud Storage bucket before starting the application
+    # my-bucket name = my_db_files
+    os.makedirs("/mnt/my_db_files", exist_ok=True)
+    subprocess.run(["gcsfuse", "my_db_files", "/mnt/my_db_files"])
+
+    # Now the SQLite database file can be accessed at
+    # '/mnt/my-bucket/my-database.db'
+    # '/mnt/my-bucket/users.db'
+
+    # 在cloud run時，使用環境變量port。
+    # 若在本機端測試，使用預設值port=5000
+    port = int(os.environ.get("PORT", 5000))
+    app.run(debug=False, host="0.0.0.0", port=port)

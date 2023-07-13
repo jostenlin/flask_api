@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "my-project-0711-392510",
+  "private_key_id": "3ca8934294db4970232f16f8afe2a91989781f51",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDGXNBbfEIRKxfg\n0DllYVVFQ/qTRoPWAwbvi3hG2b01TSIpun9DEDHJDhkPlVk0IlHYSnx4AQayS9wm\nAqtycLdcy5bgWGSCQ4mD//Jb6QzEeZ0XLKj+b1fnM3HEPn76qHcGhIN0mCzyPgVs\n5dRykvJMMSJSF7btXuScAUI+wFzQSPeSDtOzAbl8HaV9bnYZK8ude60tOXjlbp4d\nXHF8aQVgscYp2G8OMSEIkujD0XQSIJNghlffvILsZQVYKm34tJnQEy1ANh6PUcoy\niKcpr9JTGxuKsasqDd/N+Zq1Q/LjLITYLGyDbnqzW/CIWAJB/hNdcQOkpe45X9Q5\ngSd4Z2v1AgMBAAECggEAEurDDBZ7jnuXmV8COkLgCO0EtorhA8XiIXIhlFArlSu3\n+FbK0DB5Lv1jMnNBwJENUR05ZZBjfRly80UJ6K4LLpRT3S1Q2INsV+ROzqkZCJu4\neX9O1oTz0x662MZFAc6TG1ID31ir4KY9ijcY3ZxZ8x40cbPFRDnqf143XRinQU2p\nHr5D3P3cBI6v9mc3KXjY27QO3TgUp7lczlehKbv9PGN5IsLppG6e5aEx+qOzCW2K\nKBQD62/t92n2UPn2f9HqgR2WWfgKxpsiDxpwmsyvYz3kNah3krbSciKUj33QX1uY\n+qCa20n+KCOtIYASrCmhpQfEmgXLqnN8dJlCSHoVOQKBgQDn8J+LWbXDMcXUw4Uk\nJzhyrjGCBNtgYS3DMXN9XI8ryn7sO6P1BsFkBAywICtXAcn14PPOPKZeYqkIJpUF\nd0M4C7giU6/Ou2phjsvGX049WZ87XJij7la8uN6q3c3anHcYj1fJXuYBZbCP4qx6\nnwTFZ7TuBwoR3HhbAPjbrND5bwKBgQDa8IM/ClZTFrRdF6lbv1LaQ4xBOUlLEbp8\nEfwkpak7TULDZJPQpTQgyTXfrk/IeejcBNlmBjdDSPBD2ineZbynMWMssXG4KtMl\ns4cmiR66QErT/hCfOnhrtM6kEA19ElzvgtjWGe49vf0U56XzwukCpff7p9UiuNpp\nPjJTbLWW2wKBgQCAd9snCE2RDGSTcKiyWbb+blWluqL4Q1thnmZlrXrvun2Kw44R\nDejYSRXuCCN5UdhXhH4GYbmU1fjiNtyb5m8o//TBrrDWRSCrYLil6+weNyHnc2Zo\nhn8skQlkgu6eg8PDqsHpG9MyOu0NBXSbhrDR1pt0rBl7wy422db9dj9ZqQKBgQCh\nVtHxF8YLjtS1MWWddb0xmMt3mSaYymS5X2uG+gle6Q2E/c4r2EI00vH/du3WV3gx\nAuXN2FDLJang5pkqCaDfOHbUDaM2y2A0DTtQO4XITO6XkEdhf24UOPZ6UlYOUATq\nf2sZQ5ycJTCmQhq6Km0ZhYLcEY7v+ncBTVM6xQaANwKBgA4/HBDPdjpc7NdI//Ps\nUEvQznSLoipr8Hpm7Yrqy6ZW86wb/7BDWlo5yOw4VRC+HEmUnMWV8exefERmNDQf\nS/z0TaO7FRmE83/ATn4h5JXRLpv5y6zDdl6+GCX8kg1uOV+Zox7oaQ03zWVI5dpP\nIS84gY5d60BB1zUHL3d+mMv0\n-----END PRIVATE KEY-----\n",
+  "client_email": "test-sqlite3-storage@my-project-0711-392510.iam.gserviceaccount.com",
+  "client_id": "105504555750798061835",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/test-sqlite3-storage%40my-project-0711-392510.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
